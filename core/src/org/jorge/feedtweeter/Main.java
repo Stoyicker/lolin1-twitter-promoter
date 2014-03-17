@@ -1,5 +1,8 @@
 package org.jorge.feedtweeter;
 
+import org.eclipse.jetty.server.Server;
+import org.jorge.feedtweeter.io.FeedManager;
+
 /**
  * This file is part of feed-tweeter.
  * <p/>
@@ -18,4 +21,23 @@ package org.jorge.feedtweeter;
  * Created by JorgeAntonio on 17/03/14.
  */
 public class Main {
+
+    private static String WEB_PORT;
+
+    /**
+     * @param args
+     */
+    public static void main(String[] args) throws Exception {
+
+        WEB_PORT = System.getenv("PORT");
+        if ((WEB_PORT == null) || WEB_PORT.isEmpty()) {
+            WEB_PORT = "8080";
+        }
+
+        Server server = new Server(Integer.valueOf(WEB_PORT));
+
+        server.start();
+        FeedManager.getInstance().init();
+        server.join();
+    }
 }

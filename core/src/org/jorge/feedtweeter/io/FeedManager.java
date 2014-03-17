@@ -18,4 +18,19 @@ package org.jorge.feedtweeter.io;
  * Created by JorgeAntonio on 17/03/14.
  */
 public class FeedManager {
+
+    private static FeedManager singleton;
+
+    private FeedManager() {
+    }
+
+    public static FeedManager getInstance() {
+        if (singleton == null)
+            singleton = new FeedManager();
+        return singleton;
+
+    }
+
+    public void init() {
+    }
 }
