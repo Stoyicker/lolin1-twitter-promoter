@@ -1,5 +1,6 @@
 package org.jorge.feedtweeter.io.net;
 
+import org.jsoup.Jsoup;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
@@ -73,6 +74,7 @@ public class FeedManager {
 
     private ArrayList<String> processFeed(String sourceFeedContents)
             throws XPathExpressionException, ParserConfigurationException, IOException, SAXException {
+        ArrayList<String> ret = new ArrayList<>();
         XPathFactory xpathFactory = XPathFactory.newInstance();
         XPath xpath = xpathFactory.newXPath();
         DocumentBuilderFactory domFactory =
@@ -82,10 +84,10 @@ public class FeedManager {
         org.w3c.dom.Document doc = builder.parse(new ByteArrayInputStream(sourceFeedContents.getBytes()));
         NodeList nodes =
                 (NodeList) xpath.evaluate("/rss/channel/item/description", doc, XPathConstants.NODESET);
-        System.out.println(sourceFeedContents);
         for (int i = 0; i < nodes.getLength(); i++) {
-            System.out.println(nodes.item(i).toString());
+            final String cleanData = Jsoup.parse(nodes.item(i).getTextContent().replaceAll("<p>(.*)", "")).text();
+            ret.add(cleanData);
         }
-        return null;
+        return ret;
     }
 }

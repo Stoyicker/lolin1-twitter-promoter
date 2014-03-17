@@ -58,9 +58,7 @@ public class FeedManager {
             return;
         }
         for (String entry : entries) {
-            if (exists(entry)) {
-                break;
-            } else {
+            if (!exists(entry)) {
                 TwitterManager.getInstance().tweet(entry);
             }
         }

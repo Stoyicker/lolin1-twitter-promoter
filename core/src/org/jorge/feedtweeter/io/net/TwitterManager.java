@@ -93,6 +93,7 @@ public final class TwitterManager {
 
         if (statusesUpdateResults.getCompletionStatus() == Choreography.ResultSet.Status.SUCCESS) {
             org.jorge.feedtweeter.io.FeedManager.getInstance().addEntry(entry);
+            System.out.println("Tweeted entry: " + entry);
         }
     }
 }
