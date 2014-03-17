@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Temboo">
+    <CLASSES>
+      <root url="jar://$APPLICATION_HOME_DIR$/lib/temboo-java-sdk-1.76.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$APPLICATION_HOME_DIR$/lib/temboo-java-sdk-1.76.jar!/" />
+    </SOURCES>
+  </library>
+</component>

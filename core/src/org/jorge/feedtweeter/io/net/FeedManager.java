@@ -1,5 +1,7 @@
 package org.jorge.feedtweeter.io.net;
 
+import java.util.ArrayList;
+
 /**
  * This file is part of feed-tweeter.
  * <p/>
@@ -17,5 +19,23 @@ package org.jorge.feedtweeter.io.net;
  * along with feed-tweeter. If not, see <http://www.gnu.org/licenses/>.
  * Created by JorgeAntonio on 17/03/14.
  */
-public class FeedReader {
+public class FeedManager {
+
+    private static FeedManager singleton;
+
+    private FeedManager() {
+    }
+
+    public static FeedManager getInstance() {
+        if (singleton == null) {
+            singleton = new FeedManager();
+        }
+        return singleton;
+    }
+
+    public ArrayList<String> readFeed() {
+        //TODO readFeed
+        //MAYBE Study the necessity of reversing ret
+        return null;
+    }
 }
