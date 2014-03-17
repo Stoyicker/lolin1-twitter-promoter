@@ -1,6 +1,22 @@
 package org.jorge.feedtweeter.io.net;
 
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * This file is part of feed-tweeter.
@@ -21,6 +37,7 @@ import java.util.ArrayList;
  */
 public class FeedManager {
 
+    private static final String FEED_URL = "http://feed43.com/mbt_news.xml";
     private static FeedManager singleton;
 
     private FeedManager() {
@@ -33,9 +50,42 @@ public class FeedManager {
         return singleton;
     }
 
-    public ArrayList<String> readFeed() {
-        //TODO readFeed
-        //MAYBE Study the necessity of reversing ret
+    public ArrayList<String> readFeed() throws IOException {
+        ArrayList<String> ret = new ArrayList<>();
+        StringBuilder feed = new StringBuilder("");
+        URL source = new URL(FEED_URL);
+        URLConnection urlConnection = source.openConnection();
+        urlConnection.connect();
+        BufferedInputStream in = new BufferedInputStream(urlConnection.getInputStream());
+        byte[] contents = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = in.read(contents)) != -1) {
+            feed.append(new String(contents, 0, bytesRead));
+        }
+        try {
+            ret = processFeed(feed.toString());
+        } catch (XPathExpressionException | ParserConfigurationException | SAXException e) {
+            e.printStackTrace(System.err);
+        }
+        Collections.reverse(ret);
+        return ret;
+    }
+
+    private ArrayList<String> processFeed(String sourceFeedContents)
+            throws XPathExpressionException, ParserConfigurationException, IOException, SAXException {
+        XPathFactory xpathFactory = XPathFactory.newInstance();
+        XPath xpath = xpathFactory.newXPath();
+        DocumentBuilderFactory domFactory =
+                DocumentBuilderFactory.newInstance();
+        domFactory.setNamespaceAware(true);
+        DocumentBuilder builder = domFactory.newDocumentBuilder();
+        org.w3c.dom.Document doc = builder.parse(new ByteArrayInputStream(sourceFeedContents.getBytes()));
+        NodeList nodes =
+                (NodeList) xpath.evaluate("/rss/channel/item/description", doc, XPathConstants.NODESET);
+        System.out.println(sourceFeedContents);
+        for (int i = 0; i < nodes.getLength(); i++) {
+            System.out.println(nodes.item(i).toString());
+        }
         return null;
     }
 }

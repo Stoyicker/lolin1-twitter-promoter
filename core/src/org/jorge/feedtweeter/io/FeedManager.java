@@ -3,6 +3,7 @@ package org.jorge.feedtweeter.io;
 import org.jorge.feedtweeter.io.files.XML;
 import org.jorge.feedtweeter.io.net.TwitterManager;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -28,8 +29,8 @@ import java.util.concurrent.TimeUnit;
 public class FeedManager {
 
     private static final int HEARTBEAT_DELAY_SECONDS = 60 * 10;
+    private static final long INTERNET_ERROR_DELAY_MILLIS = 1000 * 60 * 5;
     private static FeedManager singleton;
-    private int ID_COUNTER = 0;
 
     private FeedManager() {
     }
@@ -43,7 +44,19 @@ public class FeedManager {
     }
 
     private void beat() {
-        ArrayList<String> entries = org.jorge.feedtweeter.io.net.FeedManager.getInstance().readFeed();
+        ArrayList<String> entries;
+        try {
+            entries = org.jorge.feedtweeter.io.net.FeedManager.getInstance().readFeed();
+        } catch (IOException e) {
+            e.printStackTrace(System.err);
+            try {
+                Thread.sleep(INTERNET_ERROR_DELAY_MILLIS);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace(System.err);
+            }
+            beat();
+            return;
+        }
         for (String entry : entries) {
             if (exists(entry)) {
                 break;
@@ -70,6 +83,6 @@ public class FeedManager {
     }
 
     public void addEntry(String entry) {
-        XML.addEntry("msg");
+        XML.addEntry(entry);
     }
 }
