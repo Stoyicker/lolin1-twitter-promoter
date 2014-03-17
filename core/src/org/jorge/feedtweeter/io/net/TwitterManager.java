@@ -35,7 +35,7 @@ public final class TwitterManager {
     private TwitterManager() {
         if (SOURCE_URL.length() + TOO_LONG_APPENDIX.length() > TWEET_LENGTH_LIMIT) {
             throw new IllegalArgumentException(
-                    "Source url too long, can't be shown in the tweets (what about using a bit.ly or such?)");
+                    "Source url too long, can't be shown in the tweets (what about using bit.ly or such?)");
         }
     }
 
