@@ -38,7 +38,7 @@ import java.util.Collections;
  */
 public class FeedManager {
 
-    private static final String FEED_URL = "http://feed43.com/mbt_news.xml";
+    private static final String FEED_URL = "YOUR_FEED_URL_HERE";
     private static FeedManager singleton;
 
     private FeedManager() {
