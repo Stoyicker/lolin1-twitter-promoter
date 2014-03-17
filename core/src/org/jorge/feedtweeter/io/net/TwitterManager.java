@@ -25,9 +25,9 @@ import org.jorge.feedtweeter.io.TickerManager;
  */
 public final class TwitterManager {
 
-    private static final String TOO_LONG_APPENDIX = "... ", SOURCE_URL = "http://bit.ly/1p2Yk2k", ACCESS_TOKEN = "",
-            ACCESS_TOKEN_SECRET = "", CONSUMER_KEY = "", CONSUMER_SECRET = "", USER_NAME = "", APP_NAME = "", APP_KEY =
-            "";
+    private static final String TOO_LONG_APPENDIX = "... ", SOURCE_URL = "YOUR_SOURCE_URL_HERE", ACCESS_TOKEN = "YOUR_ACCESS_TOKEN_HERE",
+            ACCESS_TOKEN_SECRET = "YOUR_ACCESS_TOKEN_SECRET", CONSUMER_KEY = "YOUR_CONSUMER_KEY", CONSUMER_SECRET = "YOUR_CONSUMER_SECRET", USER_NAME = "YOUR_USER_NAME_HERE", APP_NAME = "YOUR_APP_NAME", APP_KEY =
+            "YOUR_APP_KEY_HERE";
     private static final int TWEET_LENGTH_LIMIT = 140;
 
     private static TwitterManager singleton;
