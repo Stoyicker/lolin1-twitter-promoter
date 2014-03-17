@@ -4,6 +4,7 @@ import com.temboo.Library.Twitter.Tweets.StatusesUpdate;
 import com.temboo.core.Choreography;
 import com.temboo.core.TembooException;
 import com.temboo.core.TembooSession;
+import org.jorge.feedtweeter.io.TickerManager;
 
 /**
  * This file is part of feed-tweeter.
@@ -92,7 +93,7 @@ public final class TwitterManager {
         }
 
         if (statusesUpdateResults.getCompletionStatus() == Choreography.ResultSet.Status.SUCCESS) {
-            org.jorge.feedtweeter.io.FeedManager.getInstance().addEntry(entry);
+            TickerManager.getInstance().addEntry(entry);
             System.out.println("Tweeted entry: " + entry);
         }
     }

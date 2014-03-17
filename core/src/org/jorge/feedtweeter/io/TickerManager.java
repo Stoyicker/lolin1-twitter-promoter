@@ -26,18 +26,18 @@ import java.util.concurrent.TimeUnit;
  * along with feed-tweeter. If not, see <http://www.gnu.org/licenses/>.
  * Created by JorgeAntonio on 17/03/14.
  */
-public class FeedManager {
+public class TickerManager {
 
     private static final int HEARTBEAT_DELAY_SECONDS = 60 * 10;
     private static final long INTERNET_ERROR_DELAY_MILLIS = 1000 * 60 * 5;
-    private static FeedManager singleton;
+    private static TickerManager singleton;
 
-    private FeedManager() {
+    private TickerManager() {
     }
 
-    public static FeedManager getInstance() {
+    public static TickerManager getInstance() {
         if (singleton == null) {
-            singleton = new FeedManager();
+            singleton = new TickerManager();
         }
         return singleton;
 

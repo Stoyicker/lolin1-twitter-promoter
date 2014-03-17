@@ -1,6 +1,6 @@
 package org.jorge.feedtweeter;
 
-import org.jorge.feedtweeter.io.FeedManager;
+import org.jorge.feedtweeter.io.TickerManager;
 
 /**
  * This file is part of feed-tweeter.
@@ -28,7 +28,7 @@ public class Main {
 
         Thread dummyThreadThatWillNeverStart = new Thread();
 
-        FeedManager.getInstance().init();
+        TickerManager.getInstance().init();
 
         dummyThreadThatWillNeverStart.join();
     }
