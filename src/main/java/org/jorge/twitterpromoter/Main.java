@@ -1,6 +1,6 @@
-package org.jorge.feedtweeter;
+package org.jorge.twitterpromoter;
 
-import org.jorge.feedtweeter.io.TickerManager;
+import org.jorge.twitterpromoter.io.TickerManager;
 
 /**
  * This file is part of feed-tweeter.

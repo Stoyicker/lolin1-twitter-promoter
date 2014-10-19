@@ -1,10 +1,10 @@
-package org.jorge.feedtweeter.io.net;
+package org.jorge.twitterpromoter.io.net;
 
 import com.temboo.Library.Twitter.Tweets.StatusesUpdate;
 import com.temboo.core.Choreography;
 import com.temboo.core.TembooException;
 import com.temboo.core.TembooSession;
-import org.jorge.feedtweeter.io.TickerManager;
+import org.jorge.twitterpromoter.io.TickerManager;
 
 /**
  * This file is part of feed-tweeter.

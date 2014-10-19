@@ -1,4 +1,4 @@
-package org.jorge.feedtweeter.io.net;
+package org.jorge.twitterpromoter.io.net;
 
 import org.jsoup.Jsoup;
 import org.w3c.dom.NodeList;
@@ -83,7 +83,7 @@ public class FeedManager {
         DocumentBuilder builder = domFactory.newDocumentBuilder();
         org.w3c.dom.Document doc = builder.parse(new ByteArrayInputStream(sourceFeedContents.getBytes()));
         NodeList nodes =
-                (NodeList) xpath.evaluate("/rss/channel/item/description", doc, XPathConstants.NODESET);
+                (NodeList) xpath.evaluate("rss/channel/item/description", doc, XPathConstants.NODESET);
         for (int i = 0; i < nodes.getLength(); i++) {
             final String cleanData = Jsoup.parse(nodes.item(i).getTextContent().replaceAll("<p>(.*)", "")).text();
             ret.add(cleanData);

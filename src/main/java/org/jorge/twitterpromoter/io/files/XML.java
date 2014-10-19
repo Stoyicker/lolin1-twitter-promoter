@@ -1,4 +1,4 @@
-package org.jorge.feedtweeter.io.files;
+package org.jorge.twitterpromoter.io.files;
 
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;

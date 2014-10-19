@@ -1,7 +1,7 @@
-package org.jorge.feedtweeter.io;
+package org.jorge.twitterpromoter.io;
 
-import org.jorge.feedtweeter.io.files.XML;
-import org.jorge.feedtweeter.io.net.TwitterManager;
+import org.jorge.twitterpromoter.io.files.XML;
+import org.jorge.twitterpromoter.io.net.TwitterManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,7 +46,7 @@ public class TickerManager {
     private void beat() {
         ArrayList<String> entries;
         try {
-            entries = org.jorge.feedtweeter.io.net.FeedManager.getInstance().readFeed();
+            entries = org.jorge.twitterpromoter.io.net.FeedManager.getInstance().readFeed();
         } catch (IOException e) {
             e.printStackTrace(System.err);
             try {
