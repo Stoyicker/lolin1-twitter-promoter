@@ -65,9 +65,9 @@ public class TickerManager {
             e.printStackTrace();
         }
 
-        if (TwitterManager.getInstance().tweet(tweetContents.toString())) {
-            tweetIndex++;
-            tweetIndex %= TWEET_COUNT;
-        }
+        TwitterManager.getInstance().tweet(tweetContents.toString());
+
+        tweetIndex++;
+        tweetIndex %= TWEET_COUNT;
     }
 }

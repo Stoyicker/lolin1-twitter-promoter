@@ -41,22 +41,14 @@ public final class TwitterManager {
         return singleton;
     }
 
-    public Boolean tweet(String message) {
-        Twitter twitter = new TwitterFactory(
-                new ConfigurationBuilder().setDebugEnabled(true)
-                        .setOAuthConsumerKey(CONSUMER_KEY)
-                        .setOAuthConsumerSecret(CONSUMER_SECRET)
-                        .setOAuthAccessToken(ACCESS_TOKEN)
-                        .setOAuthAccessTokenSecret(ACCESS_TOKEN_SECRET).build()).getInstance();
+    public void tweet(String message) {
+        Twitter twitter = new TwitterFactory(new ConfigurationBuilder().setOAuthAccessToken(ACCESS_TOKEN).setOAuthAccessTokenSecret(ACCESS_TOKEN_SECRET).setOAuthConsumerKey(CONSUMER_KEY).setOAuthConsumerSecret(CONSUMER_SECRET).build()).getInstance();
         try {
-            System.out.println("About to send tweet: " + message);
             twitter.updateStatus(message);
-            System.out.println("Tweet sent: " + message);
+            System.out.println("Tweet " + message + " sent!");
         } catch (TwitterException e) {
+            System.err.println("Tweet " + message + "not sent!");
             e.printStackTrace(System.err);
-            return Boolean.FALSE;
         }
-
-        return Boolean.TRUE;
     }
 }
