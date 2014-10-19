@@ -1,12 +1,14 @@
 apply plugin: 'java'
 apply plugin: 'application'
-
-mainClassName = "Main"
-applicationName = "twitter-promoter"
-version = '1.0'
+mainClassName = 'org.jorge.twitterpromoter.Main'
 
 repositories {
     mavenCentral()
+}
+
+jar {
+    baseName = 'lolin1-twitter-promoter'
+    version =  '1.0'
 }
 
 dependencies {
@@ -21,3 +23,7 @@ dependencies {
 }
 
 task stage(dependsOn: ['clean', 'installApp'])
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.1'
+}
