@@ -11,7 +11,9 @@ public class Main {
 
         Thread dummyThreadThatWillNeverStart = new Thread();
 
+        System.out.println("Before initing");
         TickerManager.getInstance().init();
+        System.out.println("After initing");
 
         dummyThreadThatWillNeverStart.join();
     }

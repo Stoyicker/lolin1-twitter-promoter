@@ -2,9 +2,7 @@ package org.jorge.twitterpromoter.io;
 
 import org.jorge.twitterpromoter.io.net.TwitterManager;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.StringWriter;
+import java.io.*;
 import java.util.Scanner;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -41,16 +39,25 @@ public class TickerManager {
     }
 
     private void beat() {
+        System.out.println("Beat");
+        Scanner sc;
+        try {
+            sc = new Scanner(new FileInputStream("tweets"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace(System.err);
+            return;
+        }
         final StringWriter tweetContents = new StringWriter();
         BufferedWriter bufferedWriter = new BufferedWriter(tweetContents);
-        Scanner sc = new Scanner(getClass().getResourceAsStream("tweets"));
         int line = 0;
 
+        System.out.println("Looking for line " + tweetIndex);
         while (line < tweetIndex) {
             sc.nextLine();
             line++;
         }
 
+        System.out.println("About to write in the buffer");
         try {
             bufferedWriter.write(sc.nextLine());
             bufferedWriter.close();
@@ -58,9 +65,9 @@ public class TickerManager {
             e.printStackTrace();
         }
 
-        TwitterManager.getInstance().tweet(tweetContents.toString());
-
-        tweetIndex++;
-        tweetIndex %= TWEET_COUNT;
+        if (TwitterManager.getInstance().tweet(tweetContents.toString())) {
+            tweetIndex++;
+            tweetIndex %= TWEET_COUNT;
+        }
     }
 }

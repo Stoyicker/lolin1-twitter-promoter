@@ -1,13 +1,15 @@
 apply plugin: 'java'
 apply plugin: 'application'
+
 mainClassName = 'org.jorge.twitterpromoter.Main'
+applicationName = "lolin1-twitter-promoter"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    compile 'org.twitter4j:twitter4j-core:2.1.4'
+    compile 'org.twitter4j:twitter4j-core:4.0.2'
 }
 
 jar {

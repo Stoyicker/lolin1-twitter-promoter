@@ -1,0 +1,1 @@
+web: ./build/install/app/bin/lolin1-twitter-promoter

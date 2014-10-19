@@ -3,9 +3,7 @@ package org.jorge.twitterpromoter.io.net;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
-import twitter4j.conf.ConfigurationContext;
-import twitter4j.http.AccessToken;
-import twitter4j.http.OAuthAuthorization;
+import twitter4j.conf.ConfigurationBuilder;
 
 /**
  * This file is part of feed-tweeter.
@@ -43,14 +41,22 @@ public final class TwitterManager {
         return singleton;
     }
 
-    public void tweet(String message) {
-        AccessToken accessToken = new AccessToken(ACCESS_TOKEN, ACCESS_TOKEN_SECRET);
-        OAuthAuthorization authorization = new OAuthAuthorization(ConfigurationContext.getInstance(), CONSUMER_KEY, CONSUMER_SECRET, accessToken);
-        Twitter twitter = new TwitterFactory().getInstance(authorization);
+    public Boolean tweet(String message) {
+        Twitter twitter = new TwitterFactory(
+                new ConfigurationBuilder().setDebugEnabled(true)
+                        .setOAuthConsumerKey(CONSUMER_KEY)
+                        .setOAuthConsumerSecret(CONSUMER_SECRET)
+                        .setOAuthAccessToken(ACCESS_TOKEN)
+                        .setOAuthAccessTokenSecret(ACCESS_TOKEN_SECRET).build()).getInstance();
         try {
+            System.out.println("About to send tweet: " + message);
             twitter.updateStatus(message);
+            System.out.println("Tweet sent: " + message);
         } catch (TwitterException e) {
             e.printStackTrace(System.err);
+            return Boolean.FALSE;
         }
+
+        return Boolean.TRUE;
     }
 }
