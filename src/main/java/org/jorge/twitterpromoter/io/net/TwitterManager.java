@@ -1,5 +1,12 @@
 package org.jorge.twitterpromoter.io.net;
 
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+import twitter4j.conf.ConfigurationContext;
+import twitter4j.http.AccessToken;
+import twitter4j.http.OAuthAuthorization;
+
 /**
  * This file is part of feed-tweeter.
  * <p/>
@@ -19,18 +26,14 @@ package org.jorge.twitterpromoter.io.net;
  */
 public final class TwitterManager {
 
-    private static final String TOO_LONG_APPENDIX = "... ", SOURCE_URL = "YOUR_SOURCE_URL_HERE", ACCESS_TOKEN = "YOUR_ACCESS_TOKEN_HERE",
-            ACCESS_TOKEN_SECRET = "YOUR_ACCESS_TOKEN_SECRET", CONSUMER_KEY = "YOUR_CONSUMER_KEY", CONSUMER_SECRET = "YOUR_CONSUMER_SECRET", USER_NAME = "YOUR_USER_NAME_HERE", APP_NAME = "YOUR_APP_NAME", APP_KEY =
-            "YOUR_APP_KEY_HERE";
-    private static final int TWEET_LENGTH_LIMIT = 140;
+    private static final String ACCESS_TOKEN = System.getenv("ACCESS_TOKEN"),
+            ACCESS_TOKEN_SECRET = System.getenv("ACCESS_TOKEN_SECRET"),
+            CONSUMER_KEY = System.getenv("CONSUMER_KEY"),
+            CONSUMER_SECRET = System.getenv("CONSUMER_SECRET");
 
     private static TwitterManager singleton;
 
     private TwitterManager() {
-        if (SOURCE_URL.length() + TOO_LONG_APPENDIX.length() > TWEET_LENGTH_LIMIT) {
-            throw new IllegalArgumentException(
-                    "Source url too long, can't be shown in the tweets (what about using bit.ly or such?)");
-        }
     }
 
     public static TwitterManager getInstance() {
@@ -40,7 +43,14 @@ public final class TwitterManager {
         return singleton;
     }
 
-    public void tweet(String entry) {
-        //TODO
+    public void tweet(String message) {
+        AccessToken accessToken = new AccessToken(ACCESS_TOKEN, ACCESS_TOKEN_SECRET);
+        OAuthAuthorization authorization = new OAuthAuthorization(ConfigurationContext.getInstance(), CONSUMER_KEY, CONSUMER_SECRET, accessToken);
+        Twitter twitter = new TwitterFactory().getInstance(authorization);
+        try {
+            twitter.updateStatus(message);
+        } catch (TwitterException e) {
+            e.printStackTrace(System.err);
+        }
     }
 }
