@@ -1,6 +1,5 @@
 package org.jorge.twitterpromoter.io.net;
 
-import org.jsoup.Jsoup;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
@@ -82,12 +81,6 @@ public class FeedManager {
         domFactory.setNamespaceAware(true);
         DocumentBuilder builder = domFactory.newDocumentBuilder();
         org.w3c.dom.Document doc = builder.parse(new ByteArrayInputStream(sourceFeedContents.getBytes()));
-        NodeList nodes =
-                (NodeList) xpath.evaluate("rss/channel/item/description", doc, XPathConstants.NODESET);
-        for (int i = 0; i < nodes.getLength(); i++) {
-            final String cleanData = Jsoup.parse(nodes.item(i).getTextContent().replaceAll("<p>(.*)", "")).text();
-            ret.add(cleanData);
-        }
         return ret;
     }
 }

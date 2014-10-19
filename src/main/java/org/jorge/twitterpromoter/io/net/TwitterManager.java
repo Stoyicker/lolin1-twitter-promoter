@@ -1,11 +1,5 @@
 package org.jorge.twitterpromoter.io.net;
 
-import com.temboo.Library.Twitter.Tweets.StatusesUpdate;
-import com.temboo.core.Choreography;
-import com.temboo.core.TembooException;
-import com.temboo.core.TembooSession;
-import org.jorge.twitterpromoter.io.TickerManager;
-
 /**
  * This file is part of feed-tweeter.
  * <p/>
@@ -47,54 +41,6 @@ public final class TwitterManager {
     }
 
     public void tweet(String entry) {
-        StringBuilder msg;
-        if (entry.length() <= TWEET_LENGTH_LIMIT) {
-            msg = new StringBuilder(entry);
-            if (msg.length() <= TWEET_LENGTH_LIMIT - SOURCE_URL.length() + 1) {
-                msg.append(" " + SOURCE_URL);
-            }
-        } else {
-            msg = new StringBuilder(
-                    entry.substring(0, TWEET_LENGTH_LIMIT - SOURCE_URL.length() - TOO_LONG_APPENDIX.length()));
-        }
-
-
-        TembooSession session = null;
-        try {
-            session = new TembooSession(USER_NAME, APP_NAME, APP_KEY);
-        } catch (TembooException e) {
-            e.printStackTrace(System.err);
-        }
-        StatusesUpdate statusesUpdate = new StatusesUpdate(session);
-
-        StatusesUpdate.StatusesUpdateInputSet statusesUpdateInputs = statusesUpdate.newInputSet();
-
-        statusesUpdateInputs.set_AccessToken(ACCESS_TOKEN);
-        statusesUpdateInputs.set_AccessTokenSecret(ACCESS_TOKEN_SECRET);
-        statusesUpdateInputs.set_ConsumerSecret(CONSUMER_SECRET);
-        statusesUpdateInputs.set_StatusUpdate(msg.toString());
-        statusesUpdateInputs.set_ConsumerKey(CONSUMER_KEY);
-
-        StatusesUpdate.StatusesUpdateResultSet statusesUpdateResults;
-
-        try {
-            statusesUpdateResults = statusesUpdate.execute(statusesUpdateInputs);
-        } catch (TembooException e) {
-            e.printStackTrace(System.err);
-            return;
-        }
-
-        while (statusesUpdateResults.getCompletionStatus() == Choreography.ResultSet.Status.RUNNING) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace(System.err);
-            }
-        }
-
-        if (statusesUpdateResults.getCompletionStatus() == Choreography.ResultSet.Status.SUCCESS) {
-            TickerManager.getInstance().addEntry(entry);
-            System.out.println("Tweeted entry: " + entry);
-        }
+        //TODO
     }
 }
