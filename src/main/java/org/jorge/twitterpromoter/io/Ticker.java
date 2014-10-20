@@ -8,19 +8,19 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class TickerManager {
+public class Ticker {
 
     private static final int HEARTBEAT_PERIOD_SECONDS = 60 * 15;
     private static final int TWEET_COUNT = 50;
-    private static TickerManager singleton;
+    private static Ticker singleton;
     private static int tweetIndex = 0;
 
-    private TickerManager() {
+    private Ticker() {
     }
 
-    public static TickerManager getInstance() {
+    public static Ticker getInstance() {
         if (singleton == null) {
-            singleton = new TickerManager();
+            singleton = new Ticker();
         }
         return singleton;
 
@@ -67,7 +67,6 @@ public class TickerManager {
 
         TwitterManager.getInstance().tweet(tweetContents.toString());
 
-        tweetIndex++;
-        tweetIndex %= TWEET_COUNT;
+        tweetIndex = tweetIndex < TWEET_COUNT - 1 ? tweetIndex + 1 : 0;
     }
 }
