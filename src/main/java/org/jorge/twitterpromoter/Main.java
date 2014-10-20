@@ -1,6 +1,6 @@
 package org.jorge.twitterpromoter;
 
-import org.jorge.twitterpromoter.io.TickerManager;
+import org.jorge.twitterpromoter.io.Ticker;
 
 public class Main {
 
@@ -12,7 +12,7 @@ public class Main {
         Thread dummyThreadThatWillNeverStart = new Thread();
 
         System.out.println("Before initing");
-        TickerManager.getInstance().init();
+        Ticker.getInstance().init();
         System.out.println("After initing");
 
         dummyThreadThatWillNeverStart.join();
