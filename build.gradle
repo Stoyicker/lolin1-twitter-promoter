@@ -2,7 +2,7 @@ apply plugin: 'java'
 apply plugin: 'application'
 
 mainClassName = 'org.jorge.twitterpromoter.Main'
-applicationName = "lolin1-twitter-promoter"
+applicationName = 'app'
 
 repositories {
     mavenCentral()
