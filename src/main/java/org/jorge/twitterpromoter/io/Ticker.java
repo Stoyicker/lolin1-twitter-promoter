@@ -67,6 +67,6 @@ public class Ticker {
 
         TwitterManager.getInstance().tweet(tweetContents.toString());
 
-        tweetIndex = tweetIndex < TWEET_COUNT - 1 ? tweetIndex + 1 : 0;
+        tweetIndex = tweetIndex < TWEET_COUNT ? tweetIndex + 1 : 0;
     }
 }
