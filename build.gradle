@@ -9,6 +9,7 @@ repositories {
 }
 
 dependencies {
+    compile 'org.eclipse.jetty:jetty-servlet:7.5.3.v20111011'
     compile 'org.twitter4j:twitter4j-core:4.0.2'
 }
 
